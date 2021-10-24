@@ -2,13 +2,30 @@
 let elements = document.getElementsByTagName("p");
 // console.log(elements);
 Array.from(elements).forEach(element => {
-    // element.addEventListener('click',()=>{
-    //     // console.log(element.textContent)
-    //     console.log(document.getSelection().getRangeAt(0))
-    //     element.style="background:grey"
-    //     document.getSelection().getRangeAt(0).style="background:red"
+    element.addEventListener('click',()=>{
+        // console.log(element.textContent)
+        // console.log(document.getSelection().toString())
+        // console.log()
+        console.log(element.previousElementSibling)
+        
+        
+
+        var buttonCopy = document.createElement("button");
+        buttonCopy.innerHTML="Copy";
+        buttonCopy.addEventListener('click',()=>{
+            navigator.clipboard.writeText(document.getSelection().toString());
+        });
+
+
+        var buttonCut = document.createElement("button");
+        buttonCopy.innerHTML="Cut";
+        // element.previousElementSibling.appendChild(button)
+        element.appendChild(buttons);
+        
+        // element.style="background:grey"
+        document.getSelection().getRangeAt(0).style="background:red"
        
-    // })
+    })
     
 });
 const tagsToRemove = ["img","a"];
@@ -19,10 +36,9 @@ var color = ["#FBBF24","#F87171","#9CA3AF","#111827","#7F1D1D","#78350F","#34D39
 setInterval(()=>{
     var index = Number(((Math.random()*100)%10).toFixed(0));
     document.body.style.background = color[index]
-    console.log(color[index])
 
 },2000)
-console.log(document.getSelection().getRangeAt(0));
+// console.log(document.getSelection().getRangeAt(0));
 
 
 function removeTags(tags)
