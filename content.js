@@ -1,30 +1,44 @@
-// alert("trying content extension");
+var selectedText = "";
 let elements = document.getElementsByTagName("p");
-// console.log(elements);
+
 Array.from(elements).forEach(element => {
     element.addEventListener('click',()=>{
-        // console.log(element.textContent)
-        // console.log(document.getSelection().toString())
-        // console.log()
-        console.log(element.previousElementSibling)
         
-        
+        selectedText = document.getSelection();
+  
+        var newNode = document.createElement("div");
+        newNode.setAttribute(
+            "style",
+            "background-color: yellow; display: inline;"
+         );     
+        selectedText.getRangeAt(0).surroundContents(newNode);
+
+        var optionsSelector = document.createElement("div");
+        optionsSelector.id="options";
 
         var buttonCopy = document.createElement("button");
         buttonCopy.innerHTML="Copy";
         buttonCopy.addEventListener('click',()=>{
-            navigator.clipboard.writeText(document.getSelection().toString());
+            navigator.clipboard.writeText(selectedText.toString());
+            buttonCopy.innerHTML="Copied";
+            optionsSelector.remove();
         });
+        optionsSelector.appendChild(buttonCopy);
 
+        var buttonTweet = document.createElement("button");
+        buttonTweet.innerHTML="Tweet";
+        optionsSelector.appendChild(buttonTweet);
 
-        var buttonCut = document.createElement("button");
-        buttonCopy.innerHTML="Cut";
-        // element.previousElementSibling.appendChild(button)
-        element.appendChild(buttons);
-        
-        // element.style="background:grey"
-        document.getSelection().getRangeAt(0).style="background:red"
-       
+        // var buttonClose = document.createElement("button");
+        // buttonClose.innerHTML="X";
+        // buttonClose.addEventListener('click',()=>{
+        //     optionsSelector.remove();
+        // })
+
+        if(selectedText.toString().length>0)
+        {
+            element.parentNode.insertBefore(optionsSelector, element)
+        }
     })
     
 });
@@ -38,7 +52,6 @@ setInterval(()=>{
     document.body.style.background = color[index]
 
 },2000)
-// console.log(document.getSelection().getRangeAt(0));
 
 
 function removeTags(tags)
