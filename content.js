@@ -26,7 +26,12 @@ Array.from(elements).forEach(element => {
         optionsSelector.appendChild(buttonCopy);
 
         var buttonTweet = document.createElement("button");
-        buttonTweet.innerHTML="Tweet";
+        var link = document.createElement("a");
+        link.innerHTML="Tweet";
+        buttonTweet.appendChild(link)
+        buttonTweet.addEventListener('click',()=>{
+           link.href= `https://twitter.com/intent/tweet?text=${selectedText.toString()}`;
+        })
         optionsSelector.appendChild(buttonTweet);
 
         // var buttonClose = document.createElement("button");
